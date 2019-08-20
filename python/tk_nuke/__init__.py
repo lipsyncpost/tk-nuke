@@ -148,10 +148,13 @@ def __sgtk_on_save_callback():
 
         # and now extract a new context based on the file
         new_ctx = tk.context_from_path(file_name, curr_ctx)
+
         logger.debug("New context computed to be: %r" % new_ctx)
 
-        # now restart the engine with the new context
-        __engine_refresh(new_ctx)
+        # check for if the context has change
+        if curr_ctx != new_ctx:
+            # now restart the engine with the new context
+            __engine_refresh(new_ctx)
 
     except Exception:
         logger.exception("An exception was raised during addOnScriptSave callback.")
